@@ -1,0 +1,20 @@
+<style>
+    li{
+        display: inline;
+        list-style-type: none;
+        padding:5px;
+        border-radius: 10px;
+        background-color: rgb(169, 204, 236);
+    }
+    ul{
+        padding: 0;
+        margin:0;
+    }
+</style>
+  <nav>
+      <ul >
+        <li><a href="{{url_for('main')}}">메인페이지</a></li>
+        <li><a href="{{url_for('list')}}">투두리스트</a></li>
+        <li><a href="{{ url_for('logout') }}">로그아웃</a></li>
+      </ul>
+  </nav>

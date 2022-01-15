@@ -1,0 +1,63 @@
+<html>
+    <style>
+        *{
+            border: 0;
+        }
+        .s{
+            cursor: pointer;
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+
+<body>
+    {% if session.get('logFlag') %}
+    
+    <div  style="margin:10%; height:100%; display:flex; align-items: center; justify-content:center;">
+        <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius:10px; padding:30px;">
+            <div style="text-align: center; ">
+                {%include 'nav.html'%}
+                <h1><p>TODOLIST 생성</p></h1>
+
+                <h4>사용자 : {{session.userId}} </h4> <br>
+            </div>
+            <div style="width: 100%; text-align:center;">
+                <div >
+                    <form action="{{ url_for('createTodoList') }}" method="post">
+                    
+                        <p><input required style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; width: 300px; padding:10px;" type="text" placeholder="할일 요약" name="title" /></p>
+                        <p><textarea required style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; padding:30px;" placeholder="할일 디테일"  cols="50" rows="15" name="content" ></textarea></p>
+                        <div style="width: 100%;">
+                        시작 : <span style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"><input style="padding: 4px;" type="datetime-local" name="start" required/> </span>
+                        끝 : <span style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"><input style="padding: 4px;" type="datetime-local" name="end" required/> </span><br>
+                        </div>
+                        <p><select style=" padding :10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" required name="public" id="public"><option value="공개">공개</option><option value="비공개">비공개</option></select></p>
+                        <input class="s" style="padding:30px; background-color:rgb(250, 234, 227); margin-bottom:20px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" type="submit" value="submit" />
+                    </form>
+                </div>
+                
+            </div>
+            </div>
+            </div>
+        {% else %}
+        <div  style=" height:100%; display:flex; align-items: center; justify-content:center;">
+            <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius:10px; padding:30px;">
+        
+           
+                <div style=" padding:50px; text-align:center;">
+
+                    <h1><p>TODOLIST</p></h1>
+                    <a href="{{ url_for('login_page') }}">로그인</a>
+                    <a href="{{ url_for('signup_page') }}">회원가입</a>
+                
+                </div>
+            </div>
+            </div>
+        
+    
+        {% endif %}
+
+</body>
+
+</html>

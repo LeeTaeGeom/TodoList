@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>lists</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<style>
+    .tt:hover{
+        cursor: pointer;
+        color:blue;
+    } 
+    a{
+        text-decoration: none;
+    }
+    button{
+        margin-left:5px;
+        border:none;
+        
+    }
+    button:hover{
+        cursor:pointer
+    }
+</style>
+<body>
+
+    <div  style="margin:5%; height:100%; display:flex; align-items: center; justify-content:center;">
+        <div>
+            <div style="text-align: center;">{%include 'nav.html'%}</div>
+            
+            <div style="width: 100%; text-align:center;"><h1>TODOLIST</h1></div>
+            
+            <button onclick="hi1()">전체</button>
+            <button onclick="hi2()">공개</button>
+            <button onclick="hi3()">비공개</button>
+            <script>
+                function hi1(){
+                    $('.공개').show();
+                    $('.비공개').show();
+                }
+                function hi2(){
+                    $('.공개').show();
+                    $('.비공개').hide();
+                }
+                function hi3(){
+                    $('.공개').hide();
+                    $('.비공개').show();
+                }
+                function appear(id){
+                    if ($(`.main${id}`).css("display")=="none"){
+                        $(`.main${id}`).css("display","");
+                    }
+                    else{
+                        $(`.main${id}`).css("display","none");
+
+                    }
+                }
+            </script>
+    
+    {% for i in lists %}
+        <div class={{i.3}} style="letter-spacing:5px; line-height:30px; margin:10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius:10px; padding:70px;">
+
+        <div class="tt title{{i.0}}" onclick="appear({{i.0}})">title : {{i.1}}</div>
+        <div class="main{{i.0}}" style="display:none;">
+            content : {{i.2}} <br>
+            
+            공개여부 : {{i.3}} <br>
+            작성자 : {{i.4}} <br>
+            <input type="datetime-local" value="{{i.5}}"> <br>
+            <input type="datetime-local" value="{{i.6}}"> <br>
+            {% if session['userId'] == i.4 %}
+            <a href="{{ url_for('updateForm',id=i.0 ) }}">수정하기</a><br>
+            <a href="#" class='delete' data-uri="{{ url_for('deleteTodo', id=i.0) }}">삭제하기</a><br>
+            {% endif %}
+
+            {% if i.3 == '공개' %}
+            <form action="{{ url_for('createComment',id=i.0) }}" method="post">
+                <p>댓글</p>
+                <p><textarea required style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; padding:30px;" placeholder="댓글 적으세요"  cols="50" rows="2" name="comment" ></textarea></p>
+                <p><input  type="submit" value="submit" /></p>
+            </form>
+
+            {%for cmt in comments%}
+                {% if cmt.1 == i.0 %}
+                <div style="border: 0.5px solid lightgray; padding:10px; border-radius:10px;">
+                    댓글 : {{cmt.2}}<br>
+                    <span style="font-size: 10px;">작성자 : {{cmt.3}}
+                {% if session['userId'] == cmt.3 %}
+
+                    <a href="#" class='delcomment' data-uri="{{ url_for('deleteComment', ct_id=cmt.0) }}">삭제하기</a><br>
+                {%endif%}</span>
+                </div>
+                {%endif%}
+
+            {%endfor%}
+
+            {%endif%}
+        </div>
+        
+    </div>
+    {%endfor%}
+    </div>
+    </div>
+</body>
+</html>
+{% block script %}
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $(".delete").on('click', function() {  
+                    if(confirm("정말로 삭제하시겠습니까?")) {  
+                        location.href = $(this).data('uri');  
+                    }
+                });
+            });
+            $(document).ready(function(){
+                $(".delcomment").on('click', function() {  
+                    if(confirm("정말로 삭제하시겠습니까?")) {  
+                        location.href = $(this).data('uri');  
+                    }
+                });
+            });
+            
+        </script>
+{% endblock %}

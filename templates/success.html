@@ -1,0 +1,8 @@
+<script>
+    
+    var check= {{check|safe}};
+    if (check == 1){
+        alert("회원가입 축하드립니다");
+        location.href='{{url_for('login_page') }}';
+    }
+</script>

@@ -1,0 +1,24 @@
+<script>
+    var check= {{check|safe}};
+    if (check == 1){
+    alert("회원가입을 하지 않았습니다");
+    location.href='{{url_for('login_page') }}';
+    }
+    else if(check ==2){
+        alert("이미 가입된 아이디입니다");
+        location.href='{{url_for('signup_page') }}';
+    }
+    else if (check==3){
+        alert("비밀번호가 틀립니다");
+        location.href='{{url_for('login_page') }}';
+
+    }
+    else if (check==4){
+        alert("시작일이 끝나는날보다 빨라야합니다. 다시 작성하세요");
+        location.href ='{{url_for('main')}}';
+    }
+    else if (check==5){
+        alert("시작일이 끝나는날보다 빨라야합니다. 다시 수정하세요");
+        location.href ='{{url_for('list')}}';
+    }
+</script>

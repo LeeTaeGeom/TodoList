@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>updateForm</title>
+    <style>
+        *{
+            border: 0;
+        }
+        .s{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    
+    <div  style="margin:5%; height:100%; display:flex; align-items: center; justify-content:center;">
+        <div style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; border-radius:10px; padding:30px;">
+            <div style="width: 100%; text-align:center;">
+              
+                <div style="text-align: center; ">
+                    <h1><p>TODOLIST 수정</p></h1>
+                </div>
+    <form action="{{ url_for('updateTodoList',id=thisOne.0) }}" method="post">
+            
+        <p><input style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; width: 300px; padding:10px;" required type="text" value="{{thisOne.1}}" name="title" /></p>
+        <p><textarea cols="50" rows="15" style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; padding:30px;"  required  name="content" >{{thisOne.2}}</textarea></p>
+        시작 : <span style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"><input  style="padding: 4px;" type="datetime-local" value="{{thisOne.5}}" name="start" required/> </span>
+        끝 : <span style="box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"><input  style="padding: 4px;" type="datetime-local" value="{{thisOne.6}}" name="end" required/> </span>
+        <p><select style=" padding :10px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;"  required name="public" id="public"><option value="공개">공개</option><option value="비공개">비공개</option></select></p>
+        <p><input  class="s" style="padding:30px; background-color:rgb(250, 234, 227); margin-bottom:20px; box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;" type="submit" value="submit" /></p>
+    </form>
+    </div>
+    </div>
+    </div>
+</body>
+</html>
